@@ -1,0 +1,1 @@
+web: gunicorn HealthSyncBackend/healthsync/healthsync.wsgi:application

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: healthsync-backend
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+    startCommand: gunicorn healthsync.wsgi:application --bind 0.0.0.0:10000
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MONGO_URI
+        fromDatabase:
+          name: healthsync-db
+          property: connectionString
+      - key: MONGO_DB_NAME
+        value: HealthSyncDatabase
